@@ -1,5 +1,3 @@
-# Quickstart Resources
+# A Simple MCP Weather Server written in Python
 
-A repository of servers and clients from the following Model Context Protocol tutorials:
-- [Quickstart](https://modelcontextprotocol.io/quickstart) – a simple MCP weather server
-- [Building MCP clients](https://modelcontextprotocol.io/tutorials/building-a-client) – an LLM-powered chatbot MCP client
+See the [Quickstart](https://modelcontextprotocol.io/quickstart) tutorial for more information.
