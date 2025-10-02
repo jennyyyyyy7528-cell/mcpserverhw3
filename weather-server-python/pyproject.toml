@@ -1,13 +1,12 @@
 [project]
 name = "weather"
 version = "0.1.0"
-description = "A simple MCP weather server"
+description = "Simple MCP weather server"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.28.1",
-    "mcp[cli]>=1.2.0",
+    "mcp[cli]>=1.15.0",
     "starlette>=0.48.0",  # CORS middleware
     "uvicorn>=0.30.0",    # ASGI server
 ]
-
