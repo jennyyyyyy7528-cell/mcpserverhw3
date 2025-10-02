@@ -2,7 +2,7 @@ from typing import Any
 import os
 import httpx
 import uvicorn
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from mcp.server.fastmcp import FastMCP
 
 
