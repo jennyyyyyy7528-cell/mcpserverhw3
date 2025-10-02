@@ -1,5 +1,12 @@
 name: weather
-entrypoint: uv run python weather.py
+runtime: python
+
+startCommand:
+  command: uv
+  args:
+    - run
+    - python
+    - weather.py
 
 mcp:
   transport: stdio
