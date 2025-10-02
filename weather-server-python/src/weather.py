@@ -1,10 +1,9 @@
 from typing import Any
 import os
 import httpx
-import uvicorn
-from starlette.middleware.cors import CORSMiddleware
 from mcp.server.fastmcp import FastMCP
-
+from starlette.middleware.cors import CORSMiddleware
+import uvicorn
 
 # Initialize FastMCP server
 mcp = FastMCP("weather")
@@ -84,16 +83,18 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     forecasts = []
     for period in periods[:5]:  # Only show next 5 periods
         forecast = f"""
-{period['name']}:
-Temperature: {period['temperature']}°{period['temperatureUnit']}
-Wind: {period['windSpeed']} {period['windDirection']}
-Forecast: {period['detailedForecast']}
-"""
+        {period['name']}:
+        Temperature: {period['temperature']}°{period['temperatureUnit']}
+        Wind: {period['windSpeed']} {period['windDirection']}
+        Forecast: {period['detailedForecast']}
+        """
         forecasts.append(forecast)
 
     return "\n---\n".join(forecasts)
 
 def main():
+    # Default to stdio so Claude Desktop works out of the box.
+    # In hosted/container environments we'll set MCP_TRANSPORT=http.
     transport = os.getenv("MCP_TRANSPORT", "stdio")
     if transport in {"http", "streamable-http"}:
         # Build the Streamable HTTP ASGI app that serves /mcp
@@ -110,7 +111,8 @@ def main():
         port = int(os.getenv("PORT", "8000"))
         uvicorn.run(app, host="0.0.0.0", port=port)
     else:
-        mcp.run(transport="stdio")   
+        mcp.run(transport="stdio")
+
 
 if __name__ == "__main__":
     main()
