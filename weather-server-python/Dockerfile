@@ -1,21 +1,20 @@
-FROM python:3.11-slim
+# Use slim Python base
+FROM python:3.11-slim AS base
 
+# Set working directory
 WORKDIR /app
 
-# Install uv
+# Copy dependency files first for caching
+COPY pyproject.toml uv.lock ./
+
+# Install uv package manager
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# Copy project config and uv.lock
-COPY pyproject.toml uv.lock ./
-# Install dependencies
+# Install dependencies (no dev dependencies)
 RUN uv sync --frozen --no-dev
 
-# Copy source code
-COPY src/ .
+# Copy your actual server code
+COPY weather_server/ ./weather_server/
 
-# Smithery will hit the Streamable HTTP endpoint; we listen on $PORT
-ENV MCP_TRANSPORT=http
-EXPOSE 8081
-
-# Start the server
-CMD ["uv", "run", "python", "weather.py"]
+# Default command to run your server
+CMD ["uv", "run", "python", "-m", "weather_server"]
