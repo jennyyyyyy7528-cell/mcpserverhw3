@@ -1,12 +1,12 @@
-name: weather
-runtime: python
+runtime: "container"
 
 startCommand:
-  args:
-    - uv
-    - run
-    - python
-    - weather.py
+  type: "http"
+  configSchema:
+    type: "object"
+    properties: {}
+    required: []
 
-mcp:
-  transport: stdio
+build:
+  dockerfile: "Dockerfile"
+  dockerBuildPath: "."
