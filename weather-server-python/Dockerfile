@@ -4,17 +4,20 @@ FROM python:3.11-slim AS base
 # Set working directory
 WORKDIR /app
 
-# Copy dependency files first for caching
+# Copy dependency files first (better caching)
 COPY pyproject.toml uv.lock ./
 
 # Install uv package manager
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# Install dependencies (no dev dependencies)
+# Install dependencies (without dev packages)
 RUN uv sync --frozen --no-dev
 
-# Copy your actual server code
-COPY weather_server/ ./weather_server/
+# Copy your actual code
+COPY weather.py .
 
-# Default command to run your server
-CMD ["uv", "run", "python", "-m", "weather_server"]
+# Expose a port (change if your app uses another one)
+EXPOSE 8000
+
+# Default command to run the server
+CMD ["uv", "run", "python", "weather.py"]
