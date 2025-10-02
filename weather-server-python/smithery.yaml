@@ -1,12 +1,5 @@
-runtime: "container"
+name: weather
+entrypoint: uv run python weather.py
 
-startCommand:
-  type: "http"
-  configSchema:
-    type: "object"
-    properties: {}
-    required: []
-
-build:
-  dockerfile: "Dockerfile"
-  dockerBuildPath: "."
+mcp:
+  transport: stdio
