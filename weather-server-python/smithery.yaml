@@ -2,8 +2,8 @@ name: weather
 runtime: python
 
 startCommand:
-  command: uv
   args:
+    - uv
     - run
     - python
     - weather.py
