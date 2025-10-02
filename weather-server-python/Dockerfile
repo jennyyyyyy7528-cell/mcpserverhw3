@@ -13,11 +13,8 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 # Install dependencies (without dev packages)
 RUN uv sync --frozen --no-dev
 
-# Copy your actual code
+# Copy your actual server code
 COPY weather.py .
 
-# Expose a port (change if your app uses another one)
+# Expose a port (only used if HTTP transport mode is enabled later)
 EXPOSE 8000
-
-# Default command to run the server
-CMD ["uv", "run", "python", "weather.py"]
